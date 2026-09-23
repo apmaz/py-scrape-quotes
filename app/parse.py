@@ -82,22 +82,29 @@ def get_page_quotes() -> list[Quote]:
 
 def write_quotes_to_csv(
         quotes: list[Quote],
-        authors: dict,
-        output_csv_path: str) -> None:
+        authors_cache_dict: dict,
+        output_csv_path: str,
+        authors_biography_csv_path: str
+        ) -> None:
 
     with open(output_csv_path, "w") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(QUOTES_FIELDS)
         writer.writerows([astuple(quote) for quote in quotes])
 
-    with open("authors_biography.csv", "w") as csvfile:
+    with open(authors_biography_csv_path, "w") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(AUTHORS_FIELDS)
-        writer.writerows([astuple(author) for author in authors.values()])
+        writer.writerows([astuple(author) for author in authors_cache_dict.values()])
 
 
 def main(output_csv_path: str) -> None:
-    write_quotes_to_csv(get_page_quotes(), authors_cache, output_csv_path)
+    write_quotes_to_csv(
+        get_page_quotes(),
+        authors_cache,
+        output_csv_path,
+        authors_biography_csv_path="authors_biography.csv"
+    )
 
 
 if __name__ == "__main__":
