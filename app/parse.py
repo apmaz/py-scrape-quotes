@@ -85,7 +85,7 @@ def write_quotes_to_csv(
         authors_cache_dict: dict,
         output_csv_path: str,
         authors_biography_csv_path: str
-        ) -> None:
+) -> None:
 
     with open(output_csv_path, "w") as csvfile:
         writer = csv.writer(csvfile)
@@ -95,7 +95,9 @@ def write_quotes_to_csv(
     with open(authors_biography_csv_path, "w") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(AUTHORS_FIELDS)
-        writer.writerows([astuple(author) for author in authors_cache_dict.values()])
+        writer.writerows(
+            [astuple(author) for author in authors_cache_dict.values()]
+        )
 
 
 def main(output_csv_path: str) -> None:
